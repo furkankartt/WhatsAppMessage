@@ -27,12 +27,6 @@ namespace WhatsappMessage
             }.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            SendKeys.Send("%{TAB}");
-            SendKeys.Send("{ENTER}");
-        }
-
         private void sendWhatsApp(string number, string message)
         {
             try
@@ -49,20 +43,22 @@ namespace WhatsappMessage
                     number = number.Replace(" ", "");
                     no.Add(number);
                     no.Add("+905384452384");
-                    no.Add("+905345448169");
                     no.Add("+905384452384");
-                    no.Add("+905345448169");
                     no.Add("+905384452384");
-                    no.Add("+905345448169");
+                    no.Add("+905384452384");
+                    no.Add("+905384452384");
+                    no.Add("+905384452384");
                     for (int i = 0; i < no.Count; i++)
                     {
-                        webBrowser1.Url = new Uri("https://api.whatsapp.com/send?phone=" + no[i] + "&text=" + message);
-                        timer1.Start();
-                        MessageBox.Show(no[i] + " numaralı kişiye mesajınız gönderildi.", "BİLGİ");
-                        SendKeys.Send("%{TAB}");
+                        Process.Start("whatsapp://send?phone=" + no[i] + "&text=" + message);
+                        System.Threading.Thread.Sleep(2000);
                         SendKeys.Send("{ENTER}");
-                        timer1.Stop();
-                        #region SendKey
+                        #region SendKey ve Eski Kod
+                        //webBrowser1.Url = new Uri("https://api.whatsapp.com/send?phone=" + no[i] + "&text=" + message);
+                        //timer1.Start();
+                        //MessageBox.Show(no[i] + " numaralı kişiye mesajınız gönderildi.", "BİLGİ");
+                        //SendKeys.Send("%{TAB}");
+                        //timer1.Stop();
 
                         //foreach (var process in Process.GetProcessesByName("chrome"))
                         //{
@@ -76,6 +72,7 @@ namespace WhatsappMessage
                         //System.Threading.Thread.Sleep(2000);
                         #endregion
                     }
+                    MessageBox.Show("Mesajlarınız başarılı bir şekilde gönderilmiştir.");
                 }
             }
             catch (Exception ex)
@@ -102,7 +99,7 @@ namespace WhatsappMessage
 
             if (Kontrol)
             {
-                Process.Start(userLocal + "/WhatsApp/WhatsApp.exe");
+                Process.Start("whatsapp://");
             }
             else
             {
@@ -116,8 +113,6 @@ namespace WhatsappMessage
                 MessageBox.Show("Whatsapp yüklü değil kurulumu tamamlayınız.");
             }
             this.TopMost = true;
-            webBrowser1.Hide();
         }
-
     }
 }

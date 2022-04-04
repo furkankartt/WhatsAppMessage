@@ -28,14 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.textBoxNo = new System.Windows.Forms.TextBox();
             this.textBoxIcerik = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonGonder = new System.Windows.Forms.Button();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // textBoxNo
@@ -81,26 +78,11 @@
             this.buttonGonder.UseVisualStyleBackColor = true;
             this.buttonGonder.Click += new System.EventHandler(this.buttonGonder_Click);
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(112, 100);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(20, 50);
-            this.webBrowser1.TabIndex = 5;
-            this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 2000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 223);
-            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.buttonGonder);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -121,8 +103,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonGonder;
-        private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 
