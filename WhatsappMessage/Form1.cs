@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace WhatsappMessage
 {
@@ -12,7 +14,26 @@ namespace WhatsappMessage
         {
             InitializeComponent();
         }
-        
+
+        public void DatabaseGet()
+        {
+            SqlConnection myConn = new SqlConnection();
+            SqlCommand command = new SqlCommand();
+
+            myConn.ConnectionString = "Data Source=U220\\SQLEXPRESS;Initial Catalog=WhatsAppDB;Integrated Security=True";
+            myConn.Open();
+            command.Connection = myConn;
+            command.CommandText = ("SELECT Numara, Adi FROM BilgiTable");
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dgvNumara.DataSource = dt;
+            myConn.Close();
+
+            dgvNumara.Columns[0].Width = 150;
+            dgvNumara.Columns[1].Width = 150;
+        }
+
         public void CMDCalistir(string fileName, string workingDirectory, string arguments, ProcessWindowStyle style)
         {
             var p2 = new Process
@@ -27,53 +48,31 @@ namespace WhatsappMessage
             }.Start();
         }
 
-        private void sendWhatsApp(string number, string message)
+        private void sendWhatsApp()
         {
             try
             {
-                if(number == "")
-                {
-                    MessageBox.Show("Numara giriniz..");
-                    textBoxNo.Focus();
-                }
-                else if(number.Length <= 10)
-                {
-                    List<string> no = new List<string>();
-                    number = "+90" + number;
-                    number = number.Replace(" ", "");
-                    no.Add(number);
-                    no.Add("+905384452384");
-                    no.Add("+905384452384");
-                    no.Add("+905384452384");
-                    no.Add("+905384452384");
-                    no.Add("+905384452384");
-                    no.Add("+905384452384");
-                    for (int i = 0; i < no.Count; i++)
-                    {
-                        Process.Start("whatsapp://send?phone=" + no[i] + "&text=" + message);
-                        System.Threading.Thread.Sleep(2000);
-                        SendKeys.Send("{ENTER}");
-                        #region SendKey ve Eski Kod
-                        //webBrowser1.Url = new Uri("https://api.whatsapp.com/send?phone=" + no[i] + "&text=" + message);
-                        //timer1.Start();
-                        //MessageBox.Show(no[i] + " numaralı kişiye mesajınız gönderildi.", "BİLGİ");
-                        //SendKeys.Send("%{TAB}");
-                        //timer1.Stop();
+                #region Extra Kod
+                //foreach (var process in Process.GetProcessesByName("chrome"))
+                //{
+                //    process.Kill();
+                //}
+                //SendKeys.Send("{ENTER}");
+                //SendKeys.Send("%{F4}");
+                //SendKeys.Send("^{W}");
+                #endregion
 
-                        //foreach (var process in Process.GetProcessesByName("chrome"))
-                        //{
-                        //    process.Kill();
-                        //}
-                        //SendKeys.Send("{ENTER}");
-                        //System.Threading.Thread.Sleep(5000);
-                        //SendKeys.Send("%{F4}");
-                        //System.Threading.Thread.Sleep(2000);
-                        //SendKeys.Send("^{W}");
-                        //System.Threading.Thread.Sleep(2000);
-                        #endregion
-                    }
-                    MessageBox.Show("Mesajlarınız başarılı bir şekilde gönderilmiştir.");
+                foreach (DataGridViewRow draw in dgvNumara.SelectedRows)
+                {
+                    string no = draw.Cells[0].Value.ToString();
+                    string message = textBoxIcerik.Text;
+                    Process.Start("whatsapp://send?phone=" + no + "&text=" + message);
+                    System.Threading.Thread.Sleep(1500);
+                    SendKeys.Send("{ENTER}");
+                    SendKeys.Send("%{TAB}");
                 }
+
+                MessageBox.Show("Mesajlarınız gönderildi.");
             }
             catch (Exception ex)
             {
@@ -83,7 +82,20 @@ namespace WhatsappMessage
 
         private void buttonGonder_Click(object sender, EventArgs e)
         {
-            sendWhatsApp(textBoxNo.Text, textBoxIcerik.Text);
+            if(textBoxIcerik.Text=="")
+            {
+                MessageBox.Show("Gönderilecek mesajı yazınız.");
+            }
+            else if(dgvNumara.SelectedRows.Count==0)
+            {
+                MessageBox.Show("Gönderilecek kişi veya kişileri seçiniz.");
+            }
+            else
+            {
+                sendWhatsApp();
+                textBoxIcerik.Text = "";
+                dgvNumara.ClearSelection();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -100,9 +112,13 @@ namespace WhatsappMessage
             if (Kontrol)
             {
                 Process.Start("whatsapp://");
+                DatabaseGet();
+                dgvNumara.ClearSelection();
             }
             else
             {
+                DatabaseGet();
+
                 foreach (var file in allFiles)
                 {
                     FileInfo fi = new FileInfo(file);
@@ -113,6 +129,15 @@ namespace WhatsappMessage
                 MessageBox.Show("Whatsapp yüklü değil kurulumu tamamlayınız.");
             }
             this.TopMost = true;
+        }
+
+        private void buttonKapat_Click(object sender, EventArgs e)
+        {
+            foreach (var process in Process.GetProcessesByName("WhatsApp"))
+            {
+                process.Kill();
+            }
+            this.Close();
         }
     }
 }
