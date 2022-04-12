@@ -19,7 +19,7 @@ namespace WhatsappMessage
         {
             SqlConnection myConn = new SqlConnection();
             SqlCommand command = new SqlCommand();
-
+            //Veritabanında kayıtlı kişileri datagridte görüntülüyoruz.
             myConn.ConnectionString = "Data Source=U220\\SQLEXPRESS;Initial Catalog=WhatsAppDB;Integrated Security=True";
             myConn.Open();
             command.Connection = myConn;
@@ -29,9 +29,6 @@ namespace WhatsappMessage
             adapter.Fill(dt);
             dgvNumara.DataSource = dt;
             myConn.Close();
-
-            dgvNumara.Columns[0].Width = 150;
-            dgvNumara.Columns[1].Width = 150;
         }
 
         public void CMDCalistir(string fileName, string workingDirectory, string arguments, ProcessWindowStyle style)
@@ -53,20 +50,17 @@ namespace WhatsappMessage
             try
             {
                 #region Extra Kod
-                //foreach (var process in Process.GetProcessesByName("chrome"))
-                //{
-                //    process.Kill();
-                //}
                 //SendKeys.Send("{ENTER}");
                 //SendKeys.Send("%{F4}");
                 //SendKeys.Send("^{W}");
                 #endregion
 
+                //Datagridte seçili olan kişiler kadar döngüye giriyor.
                 foreach (DataGridViewRow draw in dgvNumara.SelectedRows)
                 {
                     string no = draw.Cells[0].Value.ToString();
                     string message = textBoxIcerik.Text;
-                    Process.Start("whatsapp://send?phone=" + no + "&text=" + message);
+                    Process.Start("whatsapp://send?phone=" + no + "&text=" + "\"" + message + "\"");
                     System.Threading.Thread.Sleep(1500);
                     SendKeys.Send("{ENTER}");
                     SendKeys.Send("%{TAB}");
@@ -82,6 +76,7 @@ namespace WhatsappMessage
 
         private void buttonGonder_Click(object sender, EventArgs e)
         {
+            //Textboxın içeriğini kontrol ediyor boşsa uyarı veriyor.
             if(textBoxIcerik.Text=="")
             {
                 MessageBox.Show("Gönderilecek mesajı yazınız.");
@@ -109,14 +104,17 @@ namespace WhatsappMessage
             string[] allFiles = Directory.GetFiles(KopyalanacakDosyaYolu, "WhatsAppSetup.exe", SearchOption.AllDirectories);
             #endregion
 
+            //Whatsapp kurulumu kontrol ediyor.
             if (Kontrol)
             {
+                //Kuruluysa form yüklenirken whatsapp başlatılıyor.
                 Process.Start("whatsapp://");
                 DatabaseGet();
                 dgvNumara.ClearSelection();
             }
             else
             {
+                //Değilse exe dosyasını belirli bir konuma koydum oradan başlatıyor. Dosya yolunu düzenleyebilirsiniz.
                 DatabaseGet();
 
                 foreach (var file in allFiles)
@@ -133,11 +131,13 @@ namespace WhatsappMessage
 
         private void buttonKapat_Click(object sender, EventArgs e)
         {
+            //Programı kapattıktan sonra whatsappıda kapatıyor.
             foreach (var process in Process.GetProcessesByName("WhatsApp"))
             {
                 process.Kill();
             }
             this.Close();
         }
+
     }
 }
