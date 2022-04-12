@@ -1,0 +1,16 @@
+[0329/150339.066:WARNING:frame_impl.cc(423)] SendProcessMessage sent to detached frame 17179869185 [4,1] will be ignored
+[0329/150417.947:INFO:CONSOLE(1)] "Another connection wants to delete database 'wawc_db_enc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/index.e48fd0fe6f90335c3ff7.worker.js (1)
+[0329/150417.948:INFO:CONSOLE(7)] "Another connection wants to delete database 'wawc_db_enc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/vendor1~bootstrap_qr.a845b257f0f12ac0b80d.js (7)
+[0329/150417.967:INFO:CONSOLE(1)] "Another connection wants to delete database 'model-storage'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/index.e48fd0fe6f90335c3ff7.worker.js (1)
+[0329/150417.968:INFO:CONSOLE(1)] "Another connection wants to delete database 'fts-storage'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/index.e48fd0fe6f90335c3ff7.worker.js (1)
+[0329/150418.453:INFO:CONSOLE(7)] "Another connection wants to delete database 'wawc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/vendor1~bootstrap_qr.a845b257f0f12ac0b80d.js (7)
+[0329/150500.962:WARNING:frame_impl.cc(423)] SendProcessMessage sent to detached frame 17179869185 [4,1] will be ignored
+[0329/150649.739:WARNING:spdy_session.cc(3273)] Received RST for invalid stream25
+[0329/150655.084:WARNING:spdy_session.cc(3273)] Received RST for invalid stream37
+[0329/150704.801:INFO:CONSOLE(1)] "Another connection wants to delete database 'wawc_db_enc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/index.e48fd0fe6f90335c3ff7.worker.js (1)
+[0329/150704.802:INFO:CONSOLE(7)] "Another connection wants to delete database 'wawc_db_enc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/vendor1~bootstrap_qr.a845b257f0f12ac0b80d.js (7)
+[0329/150704.861:INFO:CONSOLE(1)] "Another connection wants to delete database 'model-storage'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/index.e48fd0fe6f90335c3ff7.worker.js (1)
+[0329/150704.862:INFO:CONSOLE(1)] "Another connection wants to delete database 'fts-storage'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/index.e48fd0fe6f90335c3ff7.worker.js (1)
+[0329/150705.062:WARNING:spdy_session.cc(3541)] Received HEADERS for invalid stream 445
+[0329/150705.161:INFO:CONSOLE(7)] "Another connection wants to delete database 'wawc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/vendor1~bootstrap_qr.a845b257f0f12ac0b80d.js (7)
+[0329/150708.147:WARNING:frame_impl.cc(423)] SendProcessMessage sent to detached frame 17179869185 [4,1] will be ignored
